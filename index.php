@@ -12,6 +12,7 @@ and open the template in the editor.
     <body>
         <?php
         //FACTURACION BASE DE DATOS
+        //HOY PIERDEN LOS BOSTEROS
         ?>
     </body>
 </html>
