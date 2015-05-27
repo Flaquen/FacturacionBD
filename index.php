@@ -11,7 +11,7 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-        //lalala
+        //FACTURACION BASE DE DATOS
         ?>
     </body>
 </html>
