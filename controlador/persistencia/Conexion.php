@@ -27,4 +27,10 @@ class Conexion {
     public function getConexion() { 
         return $this->_conexion;
     }
+    /*public function cerrar(){
+        
+        $this->_conexion=new PDO(clo)
+        
+        
+    }*/
 }

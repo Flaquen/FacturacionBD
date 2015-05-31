@@ -54,7 +54,6 @@ class ControladorCliente extends ControladorGeneral{
         } catch (Exception $e) {
             echo "Error: " . $e->getMessage();
         }
-        
     }
 
 
@@ -70,17 +69,18 @@ class ControladorCliente extends ControladorGeneral{
         $resultado = null;
         if($datosCampos['id'] == 0) { // si id=0 entonces es agregar
             
-            
+            $id=["id_cliente"=>2];
             $hoy = getdate(); //saco la fecha para creacion y modificacion
             $fecha = $hoy['year'].'-'.$hoy['mon'].'-'.$hoy['mday'].' '.$hoy['hours'].':'.$hoy['minutes'].':'.$hoy['seconds']; //armo con la fecha un timestamp
-//            $param = ["nombre_cliente"=>$datosCampos['nombre'], "apellido_cliente"=>$datosCampos['apellido'], 
-//                "cuil_cliente"=>$datosCampos['cuil'], "iva_cliente"=>$datosCampos['iva'],
-//                "id_usuario"=>2,"creacion_cliente"=>"2015-05-31 04:37:24","modificacion_cliente"=>"2015-05-31 04:37:24","estado_cliente"=>"A"];
-            //'Diego','Bilyk','20266813022','PE',2, '2015-5-31 4:37:24', '2015-5-31 4:37:24','A'
-            $param =["nombre_cliente"=>"Diego", "apellido_cliente"=>"Bilyk", "cuil_cliente"=>12312312312, "iva_cliente"=>"MO",
-                "id_usuario"=>2, "creacion_cliente"=>'0000-00-00 00:00:00', "modificacion_cliente"=>'0000-00-00 00:00:00', 
-                "estado_cliente"=>'A'];
+            $param = ["nombre_cliente"=>$datosCampos['nombre'], "apellido_cliente"=>$datosCampos['apellido'], 
+                "cuil_cliente"=>$datosCampos['cuil'], "iva_cliente"=>$datosCampos['iva'],
+                "id_usuario"=>2,"creacion_cliente"=>  date($fecha),"modificacion_cliente"=>  date($fecha),"estado_cliente"=>"A"];
+            
+            echo date($fecha, $timestamp=  time());
+            var_dump($param);
             $resul = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::INSERTAR_CLIENTE, $param);
+            $respuesta= $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_UN_CLIENTE,$id);
+            
             if (!$resul) {
                 echo 'ERROR AL INSERTAR';
             }
@@ -93,7 +93,7 @@ class ControladorCliente extends ControladorGeneral{
             $resUpdate = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::ACTUALIZAR_ALUMNO_CON_DOMICILIO, $paramAlu);
             $id = $datosCampos['id'];
         }*/
-        $respuesta = $this->getCliente($id);
+        //$respuesta = $this->getCliente($id);
 //        $domici = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_UN_DOMICILIO, array($respuesta['FK_domicilio']));
 //        $domArr = $domici->fetch(PDO::FETCH_ASSOC);
 //        $respuesta['calle']=$domArr['calle'];

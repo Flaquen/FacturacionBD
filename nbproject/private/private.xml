@@ -2,6 +2,32 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/F:/xampp/htdocs/FacturacionBD/modelo/Provincia.php</file>
+            <file>file:/F:/xampp/htdocs/FacturacionBD/vista/html/reporteProfesores.php</file>
+            <file>file:/F:/xampp/htdocs/FacturacionBD/controlador/controladoresEspecificos/ControladorFactura.php</file>
+            <file>file:/F:/xampp/htdocs/FacturacionBD/controlador/controladoresEspecificos/ControladorGeneral.php</file>
+            <file>file:/F:/xampp/htdocs/FacturacionBD/controlador/controladoresEspecificos/ControladorLocalidad.php</file>
+            <file>file:/F:/xampp/htdocs/FacturacionBD/modelo/PrecioHistorico.php</file>
+            <file>file:/F:/xampp/htdocs/FacturacionBD/controlador/controladoresEspecificos/ControladorDomicilio.php</file>
+            <file>file:/F:/xampp/htdocs/FacturacionBD/controlador/controladoresEspecificos/ControladorUsuario.php</file>
+            <file>file:/F:/xampp/htdocs/FacturacionBD/modelo/Telefono.php</file>
+            <file>file:/F:/xampp/htdocs/FacturacionBD/modelo/DetalleFactura.php</file>
+            <file>file:/F:/xampp/htdocs/FacturacionBD/modelo/Factura.php</file>
+            <file>file:/F:/xampp/htdocs/FacturacionBD/controlador/ruteador/Ruteador.php</file>
+            <file>file:/F:/xampp/htdocs/FacturacionBD/modelo/Domicilio.php</file>
+            <file>file:/F:/xampp/htdocs/FacturacionBD/modelo/Producto.php</file>
+            <file>file:/F:/xampp/htdocs/FacturacionBD/controlador/controladoresEspecificos/ControladorCliente.php</file>
+            <file>file:/F:/xampp/htdocs/FacturacionBD/controlador/persistencia/Conexion.php</file>
+            <file>file:/F:/xampp/htdocs/FacturacionBD/index.php</file>
+            <file>file:/F:/xampp/htdocs/FacturacionBD/modelo/Localidad.php</file>
+            <file>file:/F:/xampp/htdocs/FacturacionBD/controlador/persistencia/DBSentencias.php</file>
+            <file>file:/F:/xampp/htdocs/FacturacionBD/vista/js/funcionesIndex.js</file>
+            <file>file:/F:/xampp/htdocs/FacturacionBD/modelo/Correo.php</file>
+            <file>file:/F:/xampp/htdocs/FacturacionBD/controlador/controladoresEspecificos/ControladorProvincia.php</file>
+            <file>file:/F:/xampp/htdocs/FacturacionBD/modelo/Usuario.php</file>
+            <file>file:/F:/xampp/htdocs/FacturacionBD/controlador/persistencia/ControladorPersistencia.php</file>
+            <file>file:/F:/xampp/htdocs/FacturacionBD/modelo/Cliente.php</file>
+        </group>
     </open-files>
 </project-private>

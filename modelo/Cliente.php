@@ -1,29 +1,91 @@
 <?php
-require_once 'Persona.php';
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- * Description of Alumno
- *
- * @author Flaco
- */
-class Alumno extends Persona{
-    private $legajo;
-    function __construct($nombre, $apellido, $calle, $numero, $legajo) {
-        parent::__construct($nombre, $apellido, $calle, $numero);
-        $this->legajo = $legajo;
+class Cliente{
+    private $nombre;
+    private $apellido;
+    private $cuil;
+    private $iva;
+    private $refIdUsuario;
+    private $creacion;
+    private $modificacion;
+    private $estado;
+    function __construct($nombre, $apellido, $cuil, $iva, $refIdUsuario, $creacion, $modificacion, $estado) {
+        $this->nombre = $nombre;
+        $this->apellido = $apellido;
+        $this->cuil = $cuil;
+        $this->iva = $iva;
+        $this->refIdUsuario = $refIdUsuario;
+        $this->creacion = $creacion;
+        $this->modificacion = $modificacion;
+        $this->estado = $estado;
     }
-    function getLegajo() {
-        return $this->legajo;
-    }
-
-    function setLegajo($legajo) {
-        $this->legajo = $legajo;
+    function getNombre() {
+        return $this->nombre;
     }
 
+    function getApellido() {
+        return $this->apellido;
+    }
 
+    function getCuil() {
+        return $this->cuil;
+    }
+
+    function getIva() {
+        return $this->iva;
+    }
+
+    function getRefIdUsuario() {
+        return $this->refIdUsuario;
+    }
+
+    function getCreacion() {
+        return $this->creacion;
+    }
+
+    function getModificacion() {
+        return $this->modificacion;
+    }
+
+    function getEstado() {
+        return $this->estado;
+    }
+
+    function setNombre($nombre) {
+        $this->nombre = $nombre;
+    }
+
+    function setApellido($apellido) {
+        $this->apellido = $apellido;
+    }
+
+    function setCuil($cuil) {
+        $this->cuil = $cuil;
+    }
+
+    function setIva($iva) {
+        $this->iva = $iva;
+    }
+
+    function setRefIdUsuario($refIdUsuario) {
+        $this->refIdUsuario = $refIdUsuario;
+    }
+
+    function setCreacion($creacion) {
+        $this->creacion = $creacion;
+    }
+
+    function setModificacion($modificacion) {
+        $this->modificacion = $modificacion;
+    }
+
+    function setEstado($estado) {
+        $this->estado = $estado;
+    }
+
+
+
+    
+    
+   
 }

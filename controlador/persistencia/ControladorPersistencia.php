@@ -29,6 +29,7 @@ class ControladorPersistencia implements DBSentencias {
      * @param array $parametros
      */
     public function ejecutarSentencia($query, $parametros = null) {
+        //echo $query.'<br>';
         $statement = $this->_conexion->prepare($query);
         if($parametros) {
             $index = 1;
@@ -36,6 +37,7 @@ class ControladorPersistencia implements DBSentencias {
                 echo $key.'-'.$parametro.'<br>';
                 $statement->bindValue($index, $parametro);
                 $index ++;
+                echo 'estas en la vuelta'.$index.'<br>';
             }
         }
         $statement->execute();
