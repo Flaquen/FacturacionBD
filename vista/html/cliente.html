@@ -9,8 +9,13 @@
 
         <!-- Bootstrap -->
         <link href="../../vista/css/bootstrap.min.css" rel="stylesheet">
-
-        
+    
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -35,7 +40,7 @@
         <div class="jumbotron">
             <div class="container">
                 <h1>SISTEMA INTEGRADOR</h1>
-                <p>Administrar Profesor</p>
+                <p>Administrar Clientes</p>
             </div>
         </div>
         <nav class="navbar navbar-default">
@@ -55,10 +60,15 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Administrar <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Clientes<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="alumno.html">Alumno</a></li>
-                                <li><a href="profesor.html">Profesor</a></li>
+                                <li><a href="cliente.html">Clientes</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Facturaci&oacute;n<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="factura.html">Facturas</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -70,11 +80,11 @@
         <div class="row">
             <div class="col-lg-2"></div>
             <div class="col-lg-8">
-                <!-- Buscar por distintos criterios -->
                 <nav class="navbar navbar-default">
                     <div class="container-fluid">
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            
                             <form class="navbar-form navbar-left" role="search">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default dropdown-toggle"
@@ -84,13 +94,15 @@
                                     <ul class="dropdown-menu" role="menu">
                                         <li role="presentation"><a href="#" id="cNom">Nombre</a></li>
                                         <li role="presentation"><a href="#" id="cApe">Apellido</a></li>
-                                        <li role="presentation"><a href="#" id="cTit">Título</a></li>
+                                        <li role="presentation"><a href="#" id="cCUIL">CUIL</a></li>
                                         <li role="presentation" class="divider"></li>
-                                        <li role="presentation"><a href="#" id="cCal">Calle</a></li>
+                                        <li role="presentation"><a href="#" id="cIVA">IVA</a></li>
                                     </ul>
                                 </div>
+
+
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="txtBuscar" placeholder="Buscar">
+                                    <input type="text" class="form-control" placeholder="Valor a buscar..." id="txtBuscar">
                                 </div>
                                 <button class="btn btn-primary btn-m" id="buscar" value="Buscar"><span class="glyphicon glyphicon-search left"> </span> Buscar</button>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -107,88 +119,39 @@
                     </div><!-- /.container-fluid -->
                 </nav>
             </div>
-            <div class="col-lg-2"></div>
-        </div>
-        <!-- Fin Buscar-->
-        
-        
+            <div class="col-lg-2"></div><!-- Cierra el navbar que tiene el buscar y las opciones agregar imprimir -->
+        </div>        
         <div class="row">
+            <!-- comienza tabla clientes -->
             <div class="col-lg-2"></div>
             <div class="col-lg-8">
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Selección</th>
+                            <th>Selecci&oacute;n</th>
                             <th>Nombre</th>
                             <th>Apellido</th>
-                            <th>Titulo</th>
-                            <th>Calle</th>
-                            <th>Numero</th>
+                            <th>CUIL</th>
+                            <th>IVA</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody id="cuerpoTablaProfesor">
+                    <tbody id="cuerpoTablaCliente">
                     </tbody>
-                </table>    
+                </table>
             </div>
             <div class="col-lg-2"></div>
         </div>
-        <div class="row">
-            <div class="col-lg-4"></div>
-            <div class="col-lg-4">
-                <div class="container-fluid"><!-- comienza paginación-->
-                    <nav>
-                        <ul class="pagination pagination-lg">
-                            <li class="disabled"><a href="#">&laquo;</a></li>
-                            <li class="active"><a href="">1</a></li>
-                            <li><a href="">2</a></li>
-                            <li><a href="">3</a></li>
-                            <li><a href="">4</a></li>
-                            <li><a href="">5</a></li>
-                            <li><a href="#">&raquo;</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-            <div class="col-lg-4"></div>
-        </div>
-        
-        <!--OTRO PAGER
-        <div class="row">
-            <div class="col-lg-4"></div>
-            <div class="col-lg-4">
-                <div class="container-fluid">
-                    <br>
-                    <nav>
-                        <ul class="pager">
-                            <li class="previous"><a href="#">&larr; Anterior</a></li>
-                            <li class="next"><a href="#">Siguiente &rarr;</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-            <div class="col-lg-4"></div>
-        </div><-->
         
         
         
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <!-- modal profesor-->
-        <div class="modal fade" id="modalProfesor" tabindex="-1" role="dialog" aria-labelledby="modalProfesor" aria-hidden="true">
+        <!-- modal cliente-->
+        <div class="modal fade" id="modalCliente" tabindex="-1" role="dialog" aria-labelledby="modalCliente" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form id="formProfesor" class="form-horizontal"
+                    <form id="formCliente" class="form-horizontal"
                           data-bv-message="Este valor No es válido"
                           data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
                           data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
@@ -199,7 +162,7 @@
                         <div class="modal-header">
                             
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="tituloModal">Nuevo Profesor</h4>
+                            <h4 class="modal-title" id="tituloModal">Nuevo Cliente</h4>
                             
                         </div>
                         <div class="modal-body">
@@ -225,27 +188,29 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class='col-lg-2'>Titulo</label>
+                                <label class='col-lg-2'>CUIL</label>
                                 <div class='col-lg-10'>
-                                    <input class="form-control" type="text" id="titulo" name="titulo"
+                                    <input class="form-control" type="text" id="CUIL" name="cuil"
                                            data-bv-notempty="true"
-                                           data-bv-notempty-message="Debes completar el Titulo">
+                                           data-bv-notempty-message="Debes completar el CUIL sin guiones"
+                                           
+                                           data-bv-stringlength="true"
+                                           data-bv-stringlength-min="11"
+                                           data-bv-stringlength-max="11"
+                                           data-bv-stringlength-message="El CUIL debe tener 11 digitos">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class='col-lg-2'>Calle</label>
+                                <label class='col-lg-2'>IVA</label>
                                 <div class='col-lg-10'>
-                                    <input class="form-control" type="text" id="calle" name="calle"
+                                    <input class="form-control" type="text" id="IVA" name="iva"
                                            data-bv-notempty="true"
-                                           data-bv-notempty-message="Debes completar la Calle">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class='col-lg-2'>Numero</label>
-                                <div class='col-lg-10'>
-                                    <input class="form-control" type="text" id="numero" name="numero"
-                                           data-bv-notempty="true"
-                                           data-bv-notempty-message="Debes completar el Numero">
+                                           data-bv-notempty-message="Debes completar el IVA"
+                                           data-bv-stringlength="true"
+                                           data-bv-stringlength-min="2"
+                                           data-bv-stringlength-max="2"
+                                           data-bv-stringlength-message="El IVA debe tener 2 digitos">
+                                    
                                 </div>
                             </div>
                             
@@ -258,19 +223,16 @@
                             <div class="form-group">
                                 <label class='col-lg-2'></label>
                                 <div class='col-lg-10'>
-                                    <input class="form-control" type="hidden" id="nombreFormulario" name="nombreFormulario" value="Profesor">
+                                    <input class="form-control" type="hidden" id="nombreFormulario" name="nombreFormulario" value="Cliente">
                                 </div>
                             </div>
-                            
-                            
-                            
                             
                         </div>
                         <div class="modal-footer">
                             <button type="button" id="cancelar" name="cancelar" class="btn btn-default">Close</button>
                             
                             <button type="button" id="guardar" name="accion" class="btn btn-primary" value=""></button>
-                            <input type="hidden" id="nombreFormulario" value="Profesor">
+                            <input type="hidden" id="nombreFormulario" value="Cliente">
                         </div>
                     </form>
                 </div>
@@ -282,6 +244,6 @@
         <script src="../js/jquery/jquery-1.11.1.min.js" type="text/javascript"></script>
         <script src="../js/bootstrap/bootstrap.min.js" type="text/javascript"></script>
         <script src="../js/bootstrap/bootstrapValidator.min.js" type="text/javascript"></script>
-        <script src="../js/funcionesProfesor.js" type="text/javascript"></script>
+        <script src="../js/funcionesCliente.js" type="text/javascript"></script>
     </body>
 </html>

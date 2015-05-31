@@ -11,7 +11,13 @@
  * @author Flaco
  */
 interface DBSentencias {
-    const INSERTAR_PERSONA = "INSERT INTO persona(nombre, apellido, titulo, legajo, tipo, FK_domicilio) VALUES(?,?,?,?,?,?)";
+    const CHECK_USER = "SELECT * FROM usuario WHERE nombre_usuario = ? AND pass_usuario = ?";
+    const ELIMINAR_CLIENTE = "UPDATE CLIENTE SET estado_cliente = 'N' WHERE id_cliente = ?";
+    const BUSCAR_UN_CLIENTE = "SELECT * FROM cliente WHERE estado_cliente = 'A' AND id_cliente = ?";
+    const BUSCAR_CLIENTES = "SELECT nombre_cliente, apellido_cliente, cuil_cliente, iva_cliente FROM cliente WHERE estado_cliente = 'A'";
+    const INSERTAR_CLIENTE = "INSERT INTO cliente(nombre_cliente, apellido_cliente, cuil_cliente, iva_cliente, id_usuario, creacion_cliente, modificacion_cliente, estado_cliente) VALUES(?,?,?,?,?,?,?,?)";
+    const ULTIMO_CLIENTE = "SELECT MAX(id_cliente) FROM cliente";
+    /*const INSERTAR_PERSONA = "INSERT INTO persona(nombre, apellido, titulo, legajo, tipo, FK_domicilio) VALUES(?,?,?,?,?,?)";
     
     const ELIMINAR_PERSONA = "DELETE FROM persona WHERE id = ?";
     
@@ -43,10 +49,10 @@ interface DBSentencias {
     const BUSCAR_UN_DOMICILIO = "SELECT * FROM domicilio WHERE id = ?";
     const ULTIMO_DOMICILIO = "SELECT MAX(id) FROM domicilio";
     
-    const CHECK_USER = "SELECT * FROM usuario WHERE user = ? AND pass = ?";
+    
     const BUSCAR_USUARIOS = "SELECT * FROM usuario";
     const INSERTAR_USUARIO = "INSERT INTO usuario(user, pass) VALUES(?,?)";
     const ELIMINAR_USUARIO = "DELETE FROM usuario WHERE id = ?";
     const ACTUALIZAR_USUARIO = "UPDATE usuario SET user = ?, pass = ? WHERE id = ?";
-    const BUSCAR_UN_USUARIO = "SELECT * FROM usuario WHERE id = ?";
+    const BUSCAR_UN_USUARIO = "SELECT * FROM usuario WHERE id = ?";*/
 }

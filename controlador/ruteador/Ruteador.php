@@ -5,9 +5,6 @@ if (isset($_GET['accion']) && isset($_GET['nombreFormulario'])) {
     if (isset($_GET['criterio']) && isset($_GET['valor'])) {
         $criterio = $_GET['criterio']; //valor
         $criterio = lcfirst($criterio);
-        if ($criterio=="título") {
-            $criterio = "titulo";
-        }
         $valor = $_GET['valor'];
     }
 }else if (isset ($_POST['accion'])){
