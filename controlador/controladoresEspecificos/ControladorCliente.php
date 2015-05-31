@@ -73,11 +73,18 @@ class ControladorCliente extends ControladorGeneral{
             
             $hoy = getdate(); //saco la fecha para creacion y modificacion
             $fecha = $hoy['year'].'-'.$hoy['mon'].'-'.$hoy['mday'].' '.$hoy['hours'].':'.$hoy['minutes'].':'.$hoy['seconds']; //armo con la fecha un timestamp
-            $param = ["nombre_cliente"=>$datosCampos['nombre'], "apellido_cliente"=>$datosCampos['apellido'], 
-                "cuil_cliente"=>$datosCampos['cuil'], "iva_cliente"=>$datosCampos['iva'],
-                "id_usuario"=>2,"creacion_cliente"=>"2015-05-31 00:01:02","modificacion_cliente"=>"2015-05-31 00:01:02","estado_cliente"=>"A"];
+//            $param = ["nombre_cliente"=>$datosCampos['nombre'], "apellido_cliente"=>$datosCampos['apellido'], 
+//                "cuil_cliente"=>$datosCampos['cuil'], "iva_cliente"=>$datosCampos['iva'],
+//                "id_usuario"=>2,"creacion_cliente"=>"2015-05-31 04:37:24","modificacion_cliente"=>"2015-05-31 04:37:24","estado_cliente"=>"A"];
+            //'Diego','Bilyk','20266813022','PE',2, '2015-5-31 4:37:24', '2015-5-31 4:37:24','A'
+            $param =["nombre_cliente"=>"Diego", "apellido_cliente"=>"Bilyk", "cuil_cliente"=>12312312312, "iva_cliente"=>"MO",
+                "id_usuario"=>2, "creacion_cliente"=>'0000-00-00 00:00:00', "modificacion_cliente"=>'0000-00-00 00:00:00', 
+                "estado_cliente"=>'A'];
             $resul = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::INSERTAR_CLIENTE, $param);
-            $id = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::ULTIMO_CLIENTE);
+            if (!$resul) {
+                echo 'ERROR AL INSERTAR';
+            }
+            
             
         } /*else { //si entra acá es para modificar
             $resAlumno = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_UN_ALUMNO,array($datosCampos['id']));

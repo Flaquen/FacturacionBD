@@ -33,6 +33,7 @@ class ControladorPersistencia implements DBSentencias {
         if($parametros) {
             $index = 1;
             foreach ($parametros as $key => $parametro) {
+                echo $key.'-'.$parametro.'<br>';
                 $statement->bindValue($index, $parametro);
                 $index ++;
             }
