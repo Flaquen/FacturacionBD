@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Proyecto Integrador</title>
+        <title>Facturaci&oacute;n</title>
 
         <!-- Bootstrap -->
         <link href="../../vista/css/bootstrap.min.css" rel="stylesheet">
@@ -39,8 +39,8 @@
         <!-- Main jumbotron for a primary marketing message or call to action -->
         <div class="jumbotron">
             <div class="container">
-                <h1>SISTEMA INTEGRADOR</h1>
-                <p>Administrar Clientes</p>
+                <h1>SISTEMA DE FACTURACION</h1>
+                <p>Diseño y Administración de Bases de Datos - Bilyk, Guirao, Lazarte, Vazquez</p>
             </div>
         </div>
         <nav class="navbar navbar-default">
@@ -95,8 +95,6 @@
                                         <li role="presentation"><a href="#" id="cNom">Nombre</a></li>
                                         <li role="presentation"><a href="#" id="cApe">Apellido</a></li>
                                         <li role="presentation"><a href="#" id="cCUIL">CUIL</a></li>
-                                        <li role="presentation" class="divider"></li>
-                                        <li role="presentation"><a href="#" id="cIVA">IVA</a></li>
                                     </ul>
                                 </div>
 
@@ -168,13 +166,13 @@
                         <div class="modal-body">
 
                             <div class="form-group">
-                                <input class="form-control" type="hidden" id="id" name="id">
+                                <input class="form-control" type="hidden" id="id_cliente" name="id">
                             </div>
                             
                             <div class="form-group">
                                 <label class='col-lg-2'>Nombre</label>
                                 <div class='col-lg-10'>
-                                    <input class="form-control" type="text" id="nombre" name="nombre"
+                                    <input class="form-control" type="text" id="nombre_cliente" name="nombre"
                                            data-bv-notempty="true"
                                            data-bv-notempty-message="Debes completar el Nombre">
                                 </div>
@@ -182,7 +180,7 @@
                             <div class="form-group">
                                 <label class='col-lg-2'>Apellido</label>
                                 <div class='col-lg-10'>
-                                    <input class="form-control" type="text" id="apellido" name="apellido"
+                                    <input class="form-control" type="text" id="apellido_cliente" name="apellido"
                                            data-bv-notempty="true"
                                            data-bv-notempty-message="Debes completar el Apellido">
                                 </div>
@@ -190,7 +188,7 @@
                             <div class="form-group">
                                 <label class='col-lg-2'>CUIL</label>
                                 <div class='col-lg-10'>
-                                    <input class="form-control" type="text" id="CUIL" name="cuil"
+                                    <input class="form-control" type="text" id="CUIL_cliente" name="cuil"
                                            data-bv-notempty="true"
                                            data-bv-notempty-message="Debes completar el CUIL sin guiones"
                                            
@@ -200,6 +198,22 @@
                                            data-bv-stringlength-message="El CUIL debe tener 11 digitos">
                                 </div>
                             </div>
+                            
+                                                        
+                            <div class="form-group dropdown">
+                                <label class='col-lg-2'>IVA</label>
+                                <div class='col-lg-10'>
+                                    <select class="form-control" name="IVA" id="IVA_cliente">
+                                        <option value="RI">Responsable Inscripto</option>
+                                        <option value="MO">Monotributista</option>
+                                        <option value="CF">Consumidor Final</option>
+                                    </select>
+                                </div>
+                            </div>
+                                                        
+                            
+                            
+                            <!-- antiguo iva
                             <div class="form-group">
                                 <label class='col-lg-2'>IVA</label>
                                 <div class='col-lg-10'>
@@ -212,7 +226,7 @@
                                            data-bv-stringlength-message="El IVA debe tener 2 digitos">
                                     
                                 </div>
-                            </div>
+                            </div>-->
                             
                             <div class="form-group">
                                 <label class='col-lg-2'></label>
@@ -232,7 +246,6 @@
                             <button type="button" id="cancelar" name="cancelar" class="btn btn-default">Close</button>
                             
                             <button type="button" id="guardar" name="accion" class="btn btn-primary" value=""></button>
-                            <input type="hidden" id="nombreFormulario" value="Cliente">
                         </div>
                     </form>
                 </div>

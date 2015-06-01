@@ -12,14 +12,15 @@
  */
 interface DBSentencias {
     const CHECK_USER = "SELECT * FROM usuario WHERE nombre_usuario = ? AND pass_usuario = ?";
-    const ELIMINAR_CLIENTE = "UPDATE CLIENTE SET estado_cliente = 'N' WHERE id_cliente = ?";
+    const ELIMINAR_CLIENTE = "UPDATE cliente SET estado_cliente = 'N' WHERE id_cliente = ?";
     const BUSCAR_UN_CLIENTE = "SELECT * FROM cliente WHERE estado_cliente = 'A' AND id_cliente = ?";
-    const BUSCAR_CLIENTES = "SELECT nombre_cliente, apellido_cliente, cuil_cliente, iva_cliente FROM cliente WHERE estado_cliente = 'A'";
+    const BUSCAR_CLIENTES = "SELECT nombre_cliente, apellido_cliente, cuil_cliente, iva_cliente, id_cliente FROM cliente WHERE estado_cliente = 'A'";
     const INSERTAR_CLIENTE = "INSERT INTO cliente(nombre_cliente, apellido_cliente, cuil_cliente, iva_cliente, id_usuario, creacion_cliente, modificacion_cliente, estado_cliente) VALUES(?,?,?,?,?,?,?,?)";
     const ULTIMO_CLIENTE = "SELECT MAX(id_cliente) FROM cliente";
     const SELECCION_PROVINCIAS= "SELECT nombre_provincia FROM provincia ORDER BY nombre_provincia";
     const SELECCION_LOCALIDAD ="SELECT nombre_localidad FROM localidad ORDER BY nombre_localidad";
-    
+    const INSERTAR_USUARIO = "INSERT INTO usuario(nombre_usuario, pass_usuario, acceso_usuario, creacion_usuario, modificacion_usuario) VALUES(?,?,?,?,?)";
+    const ACTUALIZAR_CLIENTE = "UPDATE cliente SET nombre_cliente = ?, apellido_cliente = ?, cuil_cliente = ?, iva_cliente = ?, id_usuario = ?, modificacion_cliente = ? WHERE id_cliente = ?";
     /*const INSERTAR_PERSONA = "INSERT INTO persona(nombre, apellido, titulo, legajo, tipo, FK_domicilio) VALUES(?,?,?,?,?,?)";
     
     const ELIMINAR_PERSONA = "DELETE FROM persona WHERE id = ?";

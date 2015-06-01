@@ -11,6 +11,9 @@ if (isset($_GET['accion']) && isset($_GET['nombreFormulario'])) {
     $accion = $_POST['accion'];
     $datosCampos = $_REQUEST;
     $nombreformulario = $datosCampos['nombreFormulario'];
+//    foreach ($datosCampos as $key => $value) {
+//        echo $key.'-'.$value.'<br>';
+//    }
 }else if(isset ($_POST['user']) && isset($_POST['pass'])){
     $accion = "guardar";
     $nombreformulario = "Usuario";

@@ -25,12 +25,8 @@ class ControladorCliente extends ControladorGeneral{
 
     public function eliminar($id) {
         try {
-            $resultadoCliente = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_UN_CLIENTE, Array($id));
-            $cliente = $resultadoCliente->fetch(PDO::FETCH_ASSOC);
-            $idCli = $cliente['id'];
-            $idCliArray = array("id"=>$idCli);
-            $resultadoBorrarPersona = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::ELIMINAR_CLIENTE, $idCliArray);
-            return $resultadoBorrarPersona->fetch(PDO::FETCH_ASSOC);     
+            $resultadoBorrarCliente = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::ELIMINAR_CLIENTE, array($id));
+            return $resultadoBorrarCliente->fetch(PDO::FETCH_ASSOC);     
         }catch (PDOException $excepcionPDO) {
             echo "<br>Error PDO: ".$excepcionPDO->getTraceAsString().'<br>';
         }catch (Exception $excepcionGral) {
@@ -40,60 +36,36 @@ class ControladorCliente extends ControladorGeneral{
 
     public function buscarX ($datos){
         try {
-            if ($datos['criterio']=="calle") { //si busca por Calle "todas las personas que vivan en la calle san juan"
-                $resulDomi = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_ALUMNO_POR_CALLE, array($datos['valor']."%"));
-                $arrayXdomis = $resulDomi->fetchAll(PDO::FETCH_ASSOC);
-                return $arrayXdomis;
-            }else{ //si busca por nombre, apellido o legajo
-                $query = str_replace("calle LIKE ?", "persona.".$datos['criterio']." LIKE '".$datos['valor']."%'", DbSentencias::BUSCAR_ALUMNO_POR_CALLE);
-                $resultado = $this->refControladorPersistencia->ejecutarSentencia($query);
-                $arrayAlumnos = $resultado->fetchAll(PDO::FETCH_ASSOC);
-                return $arrayAlumnos;
-            }
-            
+            //si busca por nombre, apellido o CUIL
+            $query = str_replace("id_cliente = ?", $datos['criterio']." LIKE '".$datos['valor']."%'", DbSentencias::BUSCAR_UN_CLIENTE);
+            $resultado = $this->refControladorPersistencia->ejecutarSentencia($query);
+            $arrayClientes = $resultado->fetchAll(PDO::FETCH_ASSOC);
+            return $arrayClientes;
         } catch (Exception $e) {
             echo "Error: " . $e->getMessage();
         }
     }
-
-
     
     public function guardar($datosCampos) {
         
-
-//        if($nombre == "" || $apellido  == "" || $legajo == "" || $calle == "" || $numero == "") {
-//            return new ApiError("Todos los datos deben estar completos!");
-//        }
-        //$parametros = array($nombre,$apellido, "-----",$legajo, "A",$calle, $numero);
-
-        $resultado = null;
+        $hoy = getdate(); //saco la fecha para creacion y modificacion
+        $fecha = $hoy['year'].'-'.$hoy['mon'].'-'.$hoy['mday'].' '.$hoy['hours'].':'.$hoy['minutes'].':'.$hoy['seconds']; //armo con la fecha un timestamp
         if($datosCampos['id'] == 0) { // si id=0 entonces es agregar
-            
-            $id=["id_cliente"=>2];
-            $hoy = getdate(); //saco la fecha para creacion y modificacion
-            $fecha = $hoy['year'].'-'.$hoy['mon'].'-'.$hoy['mday'].' '.$hoy['hours'].':'.$hoy['minutes'].':'.$hoy['seconds']; //armo con la fecha un timestamp
             $param = ["nombre_cliente"=>$datosCampos['nombre'], "apellido_cliente"=>$datosCampos['apellido'], 
-                "cuil_cliente"=>$datosCampos['cuil'], "iva_cliente"=>$datosCampos['iva'],
-                "id_usuario"=>2,"creacion_cliente"=>  date($fecha),"modificacion_cliente"=>  date($fecha),"estado_cliente"=>"A"];
-            
-            echo date($fecha, $timestamp=  time());
-            var_dump($param);
+                "cuil_cliente"=>$datosCampos['cuil'], "iva_cliente"=>$datosCampos['IVA'],
+                "id_usuario"=>2,"creacion_cliente"=>$fecha,"modificacion_cliente"=>$fecha,"estado_cliente"=>"A"];
             $resul = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::INSERTAR_CLIENTE, $param);
-            $respuesta= $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_UN_CLIENTE,$id);
-            
-            if (!$resul) {
-                echo 'ERROR AL INSERTAR';
-            }
-            
-            
-        } /*else { //si entra acá es para modificar
-            $resAlumno = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_UN_ALUMNO,array($datosCampos['id']));
-            $fkDomi = $resAlumno->fetchColumn(6);
-            $paramAlu = ["nombre"=>$datosCampos['nombre'], "apellido"=>$datosCampos['apellido'],"legajo"=>$datosCampos['legajo'],"calle"=>$datosCampos['calle'], "numero"=>$datosCampos['numero'], "id"=>$datosCampos['id']];
-            $resUpdate = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::ACTUALIZAR_ALUMNO_CON_DOMICILIO, $paramAlu);
-            $id = $datosCampos['id'];
-        }*/
-        //$respuesta = $this->getCliente($id);
+            $ultimoCliente = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::ULTIMO_CLIENTE);
+            $ultimoId = $ultimoCliente->fetchColumn();
+            $respuesta = $this->getCliente($ultimoId);
+        }else { //si entra acá es para modificar
+            $param = ["nombre_cliente"=>$datosCampos['nombre'], "apellido_cliente"=>$datosCampos['apellido'], 
+                "cuil_cliente"=>$datosCampos['cuil'], "iva_cliente"=>$datosCampos['IVA'],
+                "id_usuario"=>2, "modificacion_cliente"=>$fecha,"id_cliente"=>$datosCampos['id']];
+            $resUpdate = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::ACTUALIZAR_CLIENTE, $param);
+            $respuesta = $this->getCliente($datosCampos['id']);
+        }
+        
 //        $domici = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_UN_DOMICILIO, array($respuesta['FK_domicilio']));
 //        $domArr = $domici->fetch(PDO::FETCH_ASSOC);
 //        $respuesta['calle']=$domArr['calle'];

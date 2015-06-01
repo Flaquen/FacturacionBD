@@ -12,7 +12,7 @@ require_once '../../modelo/Profesor.php';
  *
  * @author Flaco
  */
-class ControladorProfesor extends ControladorGeneral{
+class ControladorFactura extends ControladorGeneral{
     public function buscar() {
         $statement = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_PROFESORES);
 

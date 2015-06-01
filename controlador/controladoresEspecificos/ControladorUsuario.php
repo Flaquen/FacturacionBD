@@ -51,18 +51,19 @@ class ControladorUsuario extends ControladorGeneral {
 
         $user = $datosCampos['user'];
         $pass = $datosCampos['pass'];
-
+        $hoy = getdate(); //saco la fecha para creacion y modificacion
+        $fecha = $hoy['year'].'-'.$hoy['mon'].'-'.$hoy['mday'].' '.$hoy['hours'].':'.$hoy['minutes'].':'.$hoy['seconds']; //armo con la fecha un timestamp
         if($user == "" || $pass  == "") {
             echo'Todos los datos deben estar completos!';
+        }else{
+            $parametros = array($user,  sha1($pass), "A", $fecha, $fecha); //user, pass, acceso, creac, modif
+            $resultado = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::INSERTAR_USUARIO, $parametros);
+            if(!$resultado){
+              echo 'Error al crear Usuario';
+            }
+            return $res = ["operacion"=>"exitosa"];
         }
-        $parametros = array($user,  sha1($pass));
-
-        $resultado = null;
-        $resultado = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::INSERTAR_USUARIO, $parametros);
-        if(!$resultado){
-          echo 'Error al crear Usuario';
-        }
-        return $res = ["operacion"=>"exitosa"];
+        
     }
     public function getUsuario($id) {
       $statement = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_UN_USUARIO,array($id));

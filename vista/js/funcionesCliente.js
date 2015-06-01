@@ -9,7 +9,6 @@ $(function() {
                 document.location.href="../../CerrarSesion.php";
                 event.preventDefault();
             });
-            
             app.buscarClientes();
             app.bindings();
 
@@ -17,12 +16,13 @@ $(function() {
         app.bindings = function() {
 
             $("#agregar").on('click', function(event) {
+                event.preventDefault();
                 app.borrarCampos();
-                $("#id").val(0);
+                $("#id_cliente").val(0);
                 $("#tituloModal").html("Nuevo Cliente");
                 $("#modalCliente").modal({show: true});
-                $("#guardar").attr("value","Agregar");
-                $("#guardar").html("Agregar");
+                $("#guardar").attr("value","Guardar");
+                $("#guardar").html("Guardar");
             });
             
             $("#buscar").on('click', function(event) {
@@ -35,45 +35,45 @@ $(function() {
                     alert("Debe seleccionar un criterio de búsqueda.");
                     app.buscarClientes();
                 }else{
-                    var valor = $("#btnCriterio").html().replace(" <span class=\"caret\"></span>","");
+                    var valor = $("#btnCriterio").html().replace(" <span class=\"caret\"></span>","_cliente");
                     app.buscarXcriterio($("#txtBuscar").val(), valor);
                 }
                 
             });
             
             $("#cNom").on('click', function (event){//si click en el elemento del combo Nombre, muestra nombre
-                $("#btnCriterio").attr("value","nombre");
+                $("#btnCriterio").attr("value","nombre_cliente");
                 $("#btnCriterio").html("Nombre <span class=\"caret\"></span>");      
 
             });
             $("#cApe").on('click', function (event){//si click en el elemento del combo Apellido, muestra Apellido
-                $("#btnCriterio").attr("value","apellido");
+                $("#btnCriterio").attr("value","apellido_cliente");
                 $("#btnCriterio").html("Apellido <span class=\"caret\"></span>");      
 
             });
             $("#cCUIL").on('click', function (event){//si click en el elemento del combo CUIL, muestra CUIL
-                $("#btnCriterio").attr("value","CUIL");
+                $("#btnCriterio").attr("value","cuil_cliente");
                 $("#btnCriterio").html("CUIL <span class=\"caret\"></span>");      
 
             });
-            $("#cIVA").on('click', function (event){//si click en el elemento del combo IVA, muestra IVA
-                $("#btnCriterio").attr("value","IVA");
-                $("#btnCriterio").html("IVA <span class=\"caret\"></span>");      
-
-            });
-            
+                     
             $("#reporte").on('click', function(event) {
                 document.location.href="reporteClientes.php";
             });
 
             $("#cuerpoTablaCliente").on('click', '.editar', function(event) {
 
-                $("#id").val($(this).attr("data-id_cliente"));
-
-                $("#nombre").val($(this).parent().parent().children().first().next().html());
-                $("#apellido").val($(this).parent().parent().children().first().next().next().html());
-                $("#CUIL").val($(this).parent().parent().children().first().next().next().next().html());
-                $("#IVA").val($(this).parent().parent().children().first().next().next().next().next().html());
+                $("#id_cliente").val($(this).attr("data-id_clientes"));
+                $("#nombre_cliente").val($(this).parent().parent().children().first().next().html());
+                $("#apellido_cliente").val($(this).parent().parent().children().first().next().next().html());
+                $("#CUIL_cliente").val($(this).parent().parent().children().first().next().next().next().html());
+                if ($(this).parent().parent().children().first().next().next().next().next().html() == "RI") {
+                    $("#IVA_cliente").val("RI").attr("selected");
+                }else if($(this).parent().parent().children().first().next().next().next().next().html() == "MO"){
+                    $("#IVA_cliente").val("MO").attr("selected");
+                }else{
+                    $("#IVA_cliente").val("CF").attr("selected");
+                }
                 $("#guardar").html("Modificar");
                 $("#guardar").attr("value","Modificar");
                 $("#tituloModal").html("Editar Cliente");
@@ -81,7 +81,7 @@ $(function() {
             });
 
             $("#cuerpoTablaCliente").on('click', '.eliminar', function() {
-                app.eliminarCliente($(this).attr("data-id_cliente"));
+                app.eliminarCliente($(this).attr("data-id_clientes"));
             });
 
             $("#cancelar").on("click", function(event) {
@@ -101,10 +101,10 @@ $(function() {
         };
         
         app.borrarCampos = function (){
-            $("#nombre").val("").html();
-            $("#apellido").val("").html();
-            $("#CUIL").val("").html();
-            $("#IVA").val("").html();
+            $("#nombre_cliente").val("").html();
+            $("#apellido_cliente").val("").html();
+            $("#CUIL_cliente").val("").html();
+            $("#IVA_cliente").val("CF").attr("selected");
             
         }; 
         
@@ -125,10 +125,10 @@ $(function() {
             });
         };
         
-        app.guardarCliente = function() {
+        app.guardarCliente = function() { //guarda ALTAS y MODIFICACIONES
             
-            var url = "../../controlador/ruteador/Ruteador.php"; //cambiar url
-            //data del formulario persona
+            var url = "../../controlador/ruteador/Ruteador.php"; 
+            //data del formulario cliente
             var data = $("#formCliente").serialize();
             $.ajax({
                 url: url,
@@ -169,14 +169,14 @@ $(function() {
             $.each(data, function(clave, cliente) {
                 
                 html += '<tr>' +
-                        '<td><a class="pull-left ver" data-id_cliente="' + cliente.id_cliente + '"><span class="glyphicon glyphicon-eye-open"></span>Ver</a></td>' +
+                        '<td><a class="pull-left ver" data-id_clientes="' + cliente.id_cliente + '"><span class="glyphicon glyphicon-eye-open"></span>Ver</a></td>' +
                         '<td>' + cliente.nombre_cliente + '</td>' +
                         '<td>' + cliente.apellido_cliente + '</td>' +
                         '<td>' + cliente.cuil_cliente + '</td>' +
                         '<td>' + cliente.iva_cliente + '</td>' +
                         '<td>' +
-                        '<a class="pull-left editar" data-id_cliente="' + cliente.id_cliente + '"><span class="glyphicon glyphicon-pencil"></span>Editar</a>' +
-                        '<a class="pull-right eliminar" data-id_cliente="' + cliente.id_cliente + '"><span class="glyphicon glyphicon-remove"></span>Eliminar</a>' +
+                        '<a class="pull-left editar" data-id_clientes="' + cliente.id_cliente + '"><span class="glyphicon glyphicon-pencil"></span>Editar</a>' +
+                        '<a class="pull-right eliminar" data-id_clientes="' + cliente.id_cliente + '"><span class="glyphicon glyphicon-remove"></span>Eliminar</a>' +
                         '</td>' +
                         '</tr>';
             });
@@ -185,41 +185,40 @@ $(function() {
         };
         
 
-        app.actualizarTabla = function(cliente, id) {
+        app.actualizarTabla = function(clientes, id) {
+            var html = "";
             if (id == 0) {
-                var html = '<tr>' +
-                        '<td><a class="pull-left ver" data-id_cliente="' + cliente.id_cliente + '"><span class="glyphicon glyphicon-eye-open"></span>Ver</a></td>' +
-                        '<td>' + cliente.nombre_cliente + '</td>' +
-                        '<td>' + cliente.apellido_cliente + '</td>' +
-                        '<td>' + cliente.cuil_cliente + '</td>' +
-                        '<td>' + cliente.iva_cliente + '</td>' +
-                        '<td>' +
-                        '<a class="pull-left editar" data-id_cliente="' + cliente.id_cliente + '"><span class="glyphicon glyphicon-pencil"></span>Editar</a>' +
-                        '<a class="pull-right eliminar" data-id_cliente="' + cliente.id_cliente + '"><span class="glyphicon glyphicon-remove"></span>Eliminar</a>' +
-                        '</td>' +
-                        '</tr>';
+                html = '<tr><td>' + 
+                    '<a class="pull-left ver" data-id_clientes="' + clientes.id_cliente + '"><span class="glyphicon glyphicon-eye-open"></span>Ver</a></td>' +
+                    '<td>' + clientes.nombre_cliente + '</td>' +
+                    '<td>' + clientes.apellido_cliente + '</td>' +
+                    '<td>' + clientes.cuil_cliente + '</td>' +
+                    '<td>' + clientes.iva_cliente + '</td>' +
+                    '<td>' +
+                    '<a class="pull-left editar" data-id_clientes="' + clientes.id_cliente + '"><span class="glyphicon glyphicon-pencil"></span>Editar</a>' +
+                    '<a class="pull-right eliminar" data-id_clientes="' + clientes.id_cliente + '"><span class="glyphicon glyphicon-remove"></span>Eliminar</a>' +
+                    '</td></tr>';
                 $("#cuerpoTablaCliente").append(html);
                 
             } else {
                 //busco la fila
-                var fila = $("#cuerpoTablaCliente").find("a[data-id_cliente='" + id + "']").parent().parent();
-                var html = '<td>' + 
-                        '<td><a class="pull-left ver" data-id_cliente="' + cliente.id_cliente + '"><span class="glyphicon glyphicon-eye-open"></span>Ver</a></td>' +
-                        cliente.nombre_cliente + '</td>' +
-                        '<td>' + cliente.apellido_cliente + '</td>' +
-                        '<td>' + cliente.cuil_cliente + '</td>' +
-                        '<td>' + cliente.iva_cliente + '</td>' +
-                        '<td>' +
-                        '<a class="pull-left editar" data-id_cliente="' + cliente.id_cliente + '"><span class="glyphicon glyphicon-pencil"></span>Editar</a>' +
-                        '<a class="pull-right eliminar" data-id_cliente="' + cliente.id_cliente + '"><span class="glyphicon glyphicon-remove"></span>Eliminar</a>' +
-                        '</td>';
+                var fila = $("#cuerpoTablaCliente").find("a[data-id_clientes='" + id + "']").parent().parent();
+                html = '<td>' + 
+                    '<a class="pull-left ver" data-id_clientes="' + clientes.id_cliente + '"><span class="glyphicon glyphicon-eye-open"></span>Ver</a></td>' +
+                    '<td>' + clientes.nombre_cliente + '</td>' +
+                    '<td>' + clientes.apellido_cliente + '</td>' +
+                    '<td>' + clientes.cuil_cliente + '</td>' +
+                    '<td>' + clientes.iva_cliente + '</td>' +
+                    '<td>' +
+                    '<a class="pull-left editar" data-id_clientes="' + clientes.id_cliente + '"><span class="glyphicon glyphicon-pencil"></span>Editar</a>' +
+                    '<a class="pull-right eliminar" data-id_clientes="' + clientes.id_cliente + '"><span class="glyphicon glyphicon-remove"></span>Eliminar</a>' +
+                    '</td>';
                 fila.html(html);
             }
         };
 
         app.borrarFila = function(id) {
-            var fila = $("#cuerpoTablaCliente").find("a[data-id_cliente='" + id + "']").parent().parent().remove();
-
+            var fila = $("#cuerpoTablaCliente").find("a[data-id_clientes='" + id + "']").parent().parent().remove();
         };
         
         
@@ -251,23 +250,19 @@ $(function() {
 
             $.each(data, function(clave, cliente) {
                 html += '<tr>' +
-                        '<td><a class="pull-left ver" data-id_cliente="' + cliente.id_cliente + '"><span class="glyphicon glyphicon-eye-open"></span>Ver</a></td>' +
+                        '<td><a class="pull-left ver" data-id_clientes="' + cliente.id_cliente + '"><span class="glyphicon glyphicon-eye-open"></span>Ver</a></td>' +
                         '<td>' + cliente.nombre_cliente + '</td>' +
                         '<td>' + cliente.apellido_cliente + '</td>' +
                         '<td>' + cliente.cuil_cliente + '</td>' +
                         '<td>' + cliente.iva_cliente + '</td>' +
                         '<td>' +
-                        '<a class="pull-left editar" data-id_cliente="' + cliente.id + '"><span class="glyphicon glyphicon-pencil"></span>Editar</a>' +
-                        '<a class="pull-right eliminar" data-id_cliente="' + cliente.id + '"><span class="glyphicon glyphicon-remove"></span>Eliminar</a>' +
+                        '<a class="pull-left editar" data-id_clientes="' + cliente.id_cliente + '"><span class="glyphicon glyphicon-pencil"></span>Editar</a>' +
+                        '<a class="pull-right eliminar" data-id_clientes="' + cliente.id_cliente + '"><span class="glyphicon glyphicon-remove"></span>Eliminar</a>' +
                         '</td>' +
                         '</tr>';
             });
             $("#cuerpoTablaCliente").html(html);
         };
-
-
-
-
 
         app.init();
 
