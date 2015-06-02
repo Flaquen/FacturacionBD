@@ -10,6 +10,8 @@ $(function() {
                 event.preventDefault();
             });
             app.buscarClientes();
+            app.buscarProvincia();
+            app.buscarLocalidad();
             app.bindings();
 
         };
@@ -222,10 +224,6 @@ $(function() {
         };
         
         
-        
-        
-        
-        
         app.buscarClientes = function() {
 
             var url = "../../controlador/ruteador/Ruteador.php?accion=buscar&nombreFormulario=Cliente";
@@ -263,6 +261,59 @@ $(function() {
             });
             $("#cuerpoTablaCliente").html(html);
         };
+        
+        app.buscarProvincia = function() {
+
+            var url = "../../controlador/ruteador/Ruteador.php?accion=buscar&nombreFormulario=Provincia";
+
+            $.ajax({
+                url: url,
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    app.rellenarCombo(data);
+                },
+                error: function() {
+                    alert('error al rellenar combo');
+                }
+
+            });
+        };
+        app.rellenarCombo= function(data){            
+            var combo="";
+            $.each(data, function(clave,provincia){                
+               combo+='<option>'+provincia.nombre_provincia+'</option>';                                     
+                                  
+            });
+            $("#provincia").html(combo);
+            
+        }
+        app.buscarLocalidad = function() {
+
+            var url = "../../controlador/ruteador/Ruteador.php?accion=buscar&nombreFormulario=Localidad";
+
+            $.ajax({
+                url: url,
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    app.rellenarCombo2(data);
+                },
+                error: function() {
+                    alert('error al rellenar combo');
+                }
+
+            });
+        };
+        app.rellenarCombo2= function(data){            
+            var combo="";
+            $.each(data, function(clave,localidad){                
+               combo+='<option>'+localidad.nombre_localidad+'</option>';                                     
+                                  
+            });
+            $("#localidad").html(combo);
+            
+        }
 
         app.init();
 

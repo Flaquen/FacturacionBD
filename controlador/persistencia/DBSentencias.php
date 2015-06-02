@@ -23,6 +23,7 @@ interface DBSentencias {
     const ACTUALIZAR_CLIENTE = "UPDATE cliente SET nombre_cliente = ?, apellido_cliente = ?, cuil_cliente = ?, iva_cliente = ?, id_usuario = ?, modificacion_cliente = ? WHERE id_cliente = ?";
     //SENTENCIAS PROVINCIA
     const SELECCION_PROVINCIAS= "SELECT nombre_provincia FROM provincia ORDER BY nombre_provincia";
+    const SELECCION_UNA_PROVINCIA="SELECT id_provincis FROM provincia WHERE nombre_provincia= ?";
     const INSERTAR_PROVINCIAS="INSERT INTO provincia (nombre_provincia,estado_provincia)VALUES (?,?)";
     const ELIMINAR_PROVINCIA="UPDATE provincia SET estado_provincia = 'N' WHERE id_provincia = ?";
     const ACTUALIZAR_PROVINCIA="UPDATE provincia SET nombre_provincia = ? WHERE id_provincia = ?";

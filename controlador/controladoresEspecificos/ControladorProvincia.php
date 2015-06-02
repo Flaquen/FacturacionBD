@@ -11,16 +11,16 @@ class ControladorProvincia extends ControladorGeneral {
         $buscarProvincias = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::SELECCION_PROVINCIAS);
 
         $arrayProvincias = $buscarProvincias->fetchAll(PDO::FETCH_ASSOC);
-        echo '<select>';
+        /*echo '<select>';
         foreach ($arrayProvincias as $clave ) {
             foreach ($clave as $valor) {
                 echo '<option>'.$valor.'</option>';
             }
             
         }
-        echo '</select>';
+        echo '</select>';*/
         
-        //return $arrayProvincias;
+        return $arrayProvincias;
         
     }
 
