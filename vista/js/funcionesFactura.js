@@ -18,8 +18,8 @@ $(function() {
             $("#agregar").on('click', function(event) {
                 app.borrarCampos();
                 $("#id").val(0);
-                $("#tituloModal").html("Nuevo Profesor");
-                $("#modalProfesor").modal({show: true});
+                $("#tituloModal").html("Nueva Factura");
+                $("#modalFactura").modal({show: true});
                 $("#guardar").attr("value","Agregar");
                 $("#guardar").html("Agregar");
             });
@@ -65,9 +65,9 @@ $(function() {
                 document.location.href="reporteProfesores.php";
             });
 
-            $("#cuerpoTablaProfesor").on('click', '.editar', function(event) {
+            $("#cuerpoTablaFactura").on('click', '.editar', function(event) {
 
-                $("#id").val($(this).attr("data-id_profesor"));
+                $("#id").val($(this).attr("data-id_factura"));
 
                 $("#nombre").val($(this).parent().parent().children().first().html());
                 $("#apellido").val($(this).parent().parent().children().first().next().html());
@@ -76,14 +76,14 @@ $(function() {
                 $("#numero").val($(this).parent().parent().children().first().next().next().next().next().html());
                 $("#guardar").html("Modificar");
                 $("#guardar").attr("value","Modificar");
-                $("#tituloModal").html("Editar Profesor");
-                $("#modalProfesor").modal({show: true});
+                $("#tituloModal").html("Editar Factura");
+                $("#modalFactura").modal({show: true});
             });
             
             app.buscarXcriterio = function (txtBuscar, btnCriterio){
             var valor = txtBuscar;
             var crit = btnCriterio;
-            var url = "../../controlador/ruteador/Ruteador.php?accion=buscarX&nombreFormulario=Profesor&criterio=" + crit +"&valor=" + valor;
+            var url = "../../controlador/ruteador/Ruteador.php?accion=buscarX&nombreFormulario=Factura&criterio=" + crit +"&valor=" + valor;
             $.ajax({
                 url: url,
                 method: "GET",
@@ -97,22 +97,22 @@ $(function() {
             });
         };
 
-            $("#cuerpoTablaProfesor").on('click', '.eliminar', function() {
-                app.eliminarProfesor($(this).attr("data-id_profesor"));
+            $("#cuerpoTablaFactura").on('click', '.eliminar', function() {
+                app.eliminarFactura($(this).attr("data-id_factura"));
             });
 
             $("#cancelar").on("click", function(event) {
                 event.preventDefault();
                 app.borrarCampos();
-                $("#modalProfesor").modal('hide');
+                $("#modalFactura").modal('hide');
             });
 
             $("#guardar").on("click", function(event) {
                 event.preventDefault();
-                app.guardarProfesor();
+                app.guardarFactura();
             });
 
-            $("#formProfesor").bootstrapValidator({
+            $("#formFactura").bootstrapValidator({
                 excluded: []
             });
         };
@@ -126,18 +126,18 @@ $(function() {
             
         };
         
-        app.guardarProfesor = function() {
+        app.guardarFactura = function() {
             
             var url = "../../controlador/ruteador/Ruteador.php"; //cambiar url
             //data del formulario persona
-            var data = $("#formProfesor").serialize();
+            var data = $("#formFactura").serialize();
             $.ajax({
                 url: url,
                 method: 'POST',
                 dataType: 'json',
                 data: data,
                 success: function(datos) {
-                    $("#modalProfesor").modal('hide');
+                    $("#modalFactura").modal('hide');
                     app.actualizarTabla(datos, $("#id").val());
                 },
                 error: function(data) {
@@ -145,9 +145,9 @@ $(function() {
                 }
             });
         };
-        app.eliminarProfesor = function(id) {
+        app.eliminarFactura = function(id) {
 
-            var url = "../../controlador/ruteador/Ruteador.php?accion=eliminar&nombreFormulario=Profesor&id=" + id; 
+            var url = "../../controlador/ruteador/Ruteador.php?accion=eliminar&nombreFormulario=Factura&id=" + id; 
 
             $.ajax({
                 url: url,
@@ -167,60 +167,60 @@ $(function() {
 
             var html = "";
 
-            $.each(data, function(clave, profesor) {
+            $.each(data, function(clave, factura) {
                 html += '<tr>' +
-                        '<td><a class="center-block seleccionar" data-id_profesor="' + profesor.id + '"><span class="glyphicon glyphicon-eye-open"></span></a>' +
-                        '<td>' + profesor.nombre + '</td>' +
-                        '<td>' + profesor.apellido + '</td>' +
-                        '<td>' + profesor.titulo + '</td>' +
-                        '<td>' + profesor.calle + '</td>' +
-                        '<td>' + profesor.numero + '</td>' +
+                        '<td><a class="center-block seleccionar" data-id_factura="' + factura.id_factura + '"><span class="glyphicon glyphicon-eye-open"></span></a>' +
+                        '<td>' + factura.nombre + '</td>' +
+                        '<td>' + factura.apellido + '</td>' +
+                        '<td>' + factura.titulo + '</td>' +
+                        '<td>' + factura.calle + '</td>' +
+                        '<td>' + factura.numero + '</td>' +
                         '<td>' +
-                        '<a class="pull-left editar" data-id_profesor="' + profesor.id + '"><span class="glyphicon glyphicon-pencil"></span>Editar</a>' +
-                        '<a class="pull-right eliminar" data-id_profesor="' + profesor.id + '"><span class="glyphicon glyphicon-remove"></span>Eliminar</a>' +
+                        '<a class="pull-left editar" data-id_factura="' + factura.id_factura + '"><span class="glyphicon glyphicon-pencil"></span>Editar</a>' +
+                        '<a class="pull-right eliminar" data-id_factura="' + factura.id_factura + '"><span class="glyphicon glyphicon-remove"></span>Eliminar</a>' +
                         '</td>' +
                         '</tr>';
             });
 
-            $("#cuerpoTablaProfesor").html(html);
+            $("#cuerpoTablaFactura").html(html);
         };
 
-        app.actualizarTabla = function(profesor, id) {
+        app.actualizarTabla = function(factura, id) {
             if (id == 0) {
                 var html = '<tr>' +
-                        '<td><a class="center-block seleccionar" data-id_profesor="' + profesor.id + '"><span class="glyphicon glyphicon-eye-open"></span></a></td>' +
-                        '<td>' + profesor.nombre + '</td>' +
-                        '<td>' + profesor.apellido + '</td>' +
-                        '<td>' + profesor.titulo + '</td>' +
-                        '<td>' + profesor.calle + '</td>' +
-                        '<td>' + profesor.numero + '</td>' +
+                        '<td><a class="center-block seleccionar" data-id_factura="' + factura.id_factura + '"><span class="glyphicon glyphicon-eye-open"></span></a></td>' +
+                        '<td>' + factura.nombre + '</td>' +
+                        '<td>' + factura.apellido + '</td>' +
+                        '<td>' + factura.titulo + '</td>' +
+                        '<td>' + factura.calle + '</td>' +
+                        '<td>' + factura.numero + '</td>' +
                         '<td>' +
-                        '<a class="pull-left editar" data-id_profesor="' + profesor.id + '"><span class="glyphicon glyphicon-pencil"></span>Editar</a>' +
-                        '<a class="pull-right eliminar" data-id_profesor="' + profesor.id + '"><span class="glyphicon glyphicon-remove"></span>Eliminar</a>' +
+                        '<a class="pull-left editar" data-id_factura="' + factura.id_factura + '"><span class="glyphicon glyphicon-pencil"></span>Editar</a>' +
+                        '<a class="pull-right eliminar" data-id_factura="' + factura.id_factura + '"><span class="glyphicon glyphicon-remove"></span>Eliminar</a>' +
                         '</td>' +
                         '</tr>';
-                $("#cuerpoTablaProfesor").append(html);
+                $("#cuerpoTablaFactura").append(html);
                 
             } else {
                 //busco la fila
-                var fila = $("#cuerpoTablaProfesor").find("a[data-id_profesor='" + id + "']").parent().parent();
+                var fila = $("#cuerpoTablaFactura").find("a[data-id_factura='" + id + "']").parent().parent();
                 var html = '<td>' + 
-                        '<td><a class="center-block seleccionar" data-id_profesor="' + profesor.id + '"><span class="glyphicon glyphicon-eye-open"></span></a></td>' +
-                        '<td>' + profesor.nombre + '</td>' +
-                        '<td>' + profesor.apellido + '</td>' +
-                        '<td>' + profesor.titulo + '</td>' +
-                        '<td>' + profesor.calle + '</td>' +
-                        '<td>' + profesor.numero + '</td>' +
+                        '<td><a class="center-block seleccionar" data-id_factura="' + factura.id_factura + '"><span class="glyphicon glyphicon-eye-open"></span></a></td>' +
+                        '<td>' + factura.nombre + '</td>' +
+                        '<td>' + factura.apellido + '</td>' +
+                        '<td>' + factura.titulo + '</td>' +
+                        '<td>' + factura.calle + '</td>' +
+                        '<td>' + factura.numero + '</td>' +
                         '<td>' +
-                        '<a class="pull-left editar" data-id_profesor="' + profesor.id + '"><span class="glyphicon glyphicon-pencil"></span>Editar</a>' +
-                        '<a class="pull-right eliminar" data-id_profesor="' + profesor.id + '"><span class="glyphicon glyphicon-remove"></span>Eliminar</a>' +
+                        '<a class="pull-left editar" data-id_factura="' + factura.id_factura + '"><span class="glyphicon glyphicon-pencil"></span>Editar</a>' +
+                        '<a class="pull-right eliminar" data-id_factura="' + factura.id_factura + '"><span class="glyphicon glyphicon-remove"></span>Eliminar</a>' +
                         '</td>';
                 fila.html(html);
             }
         };
 
         app.borrarFila = function(id) {
-            var fila = $("#cuerpoTablaProfesor").find("a[data-id_profesor='" + id + "']").parent().parent().remove();
+            var fila = $("#cuerpoTablaFactura").find("a[data-id_factura='" + id + "']").parent().parent().remove();
 
         };
         
@@ -232,7 +232,7 @@ $(function() {
         
         app.buscarProfesores = function() {
 
-            var url = "../../controlador/ruteador/Ruteador.php?accion=buscar&nombreFormulario=Profesor";
+            var url = "../../controlador/ruteador/Ruteador.php?accion=buscar&nombreFormulario=factura";
 
             $.ajax({
                 url: url,
@@ -254,19 +254,19 @@ $(function() {
 
             $.each(data, function(clave, persona) {
                 html += '<tr>' +
-                        '<td><a class="center-block seleccionar" data-id_profesor="' + persona.id + '"><span class="glyphicon glyphicon-eye-open"></span></a></td>' +
+                        '<td><a class="center-block seleccionar" data-id_factura="' + persona.id + '"><span class="glyphicon glyphicon-eye-open"></span></a></td>' +
                         '<td>' + persona.nombre + '</td>' +
                         '<td>' + persona.apellido + '</td>' +
                         '<td>' + persona.titulo + '</td>' +
                         '<td>' + persona.calle + '</td>' +
                         '<td>' + persona.numero + '</td>' +
                         '<td>' +
-                        '<a class="pull-left editar" data-id_profesor="' + persona.id + '"><span class="glyphicon glyphicon-pencil"></span>Editar</a>' +
-                        '<a class="pull-right eliminar" data-id_profesor="' + persona.id + '"><span class="glyphicon glyphicon-remove"></span>Eliminar</a>' +
+                        '<a class="pull-left editar" data-id_factura="' + persona.id + '"><span class="glyphicon glyphicon-pencil"></span>Editar</a>' +
+                        '<a class="pull-right eliminar" data-id_factura="' + persona.id + '"><span class="glyphicon glyphicon-remove"></span>Eliminar</a>' +
                         '</td>' +
                         '</tr>';
             });
-            $("#cuerpoTablaProfesor").html(html);
+            $("#cuerpoTablaFactura").html(html);
         };
 
 
