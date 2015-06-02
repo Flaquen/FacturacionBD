@@ -238,7 +238,7 @@ $(function() {
                     app.rellenarTabla(data);
                 },
                 error: function() {
-                    alert('error');
+                    alert('error al buscar cliente');
                 }
 
             });

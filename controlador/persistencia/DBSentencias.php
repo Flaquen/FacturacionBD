@@ -13,7 +13,7 @@
 interface DBSentencias {
     //SENTENCIAS USUARIO
     const CHECK_USER = "SELECT * FROM usuario WHERE nombre_usuario = ? AND pass_usuario = ?";
-    const INSERTAR_USUARIO = "INSERT INTO usuario(nombre_usuario, pass_usuario, acceso_usuario, creacion_usuario, modificacion_usuario) VALUES(?,?,?,?,?)";
+    const INSERTAR_USUARIO = "INSERT INTO usuario(nombre_usuario, pass_usuario, acceso_usuario, creacion_usuario, modificacion_usuario,estado_usuario) VALUES(?,?,?,?,?,?)";
     //SENTENCIAS CLIENTE
     const ELIMINAR_CLIENTE = "UPDATE cliente SET estado_cliente = 'N' WHERE id_cliente = ?";
     const BUSCAR_UN_CLIENTE = "SELECT * FROM cliente WHERE estado_cliente = 'A' AND id_cliente = ?";
@@ -28,9 +28,9 @@ interface DBSentencias {
     const ACTUALIZAR_PROVINCIA="UPDATE provincia SET nombre_provincia = ? WHERE id_provincia = ?";
     //SENTENCIAS LOCALIDAD
     const SELECCION_LOCALIDAD ="SELECT nombre_localidad FROM localidad ORDER BY nombre_localidad";
-    const INSERTAR_PROVINCIAS="INSERT INTO localidad (nombre_localidad,estado_localidad)VALUES (?,?)";
-    const ELIMINAR_PROVINCIA="UPDATE localidad SET estado_localidad = 'N' WHERE id_localidad = ?";
-    const ACTUALIZAR_PROVINCIA="UPDATE localidad SET nombre_localidad = ? WHERE id_localidad = ?";
+    const INSERTAR_LOCALIDAD="INSERT INTO localidad (nombre_localidad,estado_localidad)VALUES (?,?)";
+    const ELIMINAR_LOCALIDAD="UPDATE localidad SET estado_localidad = 'N' WHERE id_localidad = ?";
+    const ACTUALIZAR_LOCALIDAD="UPDATE localidad SET nombre_localidad = ? WHERE id_localidad = ?";
     
     
     
