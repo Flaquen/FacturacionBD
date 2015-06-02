@@ -22,7 +22,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#" id="navUsuario">Sesi&oacute;n iniciada<font color="red"><span id="logedUser"></span></font></a>
+                    <a class="navbar-brand" href="#" id="navUsuario">Sesi&oacute;n iniciada: <font color="red"><span id="logedUser"></span></font></a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <form class="navbar-form navbar-right" action="cerrarSesion.php" method="POST">
@@ -35,7 +35,7 @@
         <div class="jumbotron">
             <div class="container">
                 <h1>SISTEMA INTEGRADOR</h1>
-                <p>Administrar Facturas</p>
+                <p>Administrar Profesor</p>
             </div>
         </div>
         <nav class="navbar navbar-default">
@@ -55,21 +55,10 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Clientes<span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Administrar <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="cliente.html">Clientes</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Facturaci&oacute;n<span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="factura.html">Facturas</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Productos<span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="producto.html">Productos</a></li>
+                                <li><a href="alumno.html">Alumno</a></li>
+                                <li><a href="profesor.html">Profesor</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -93,9 +82,11 @@
                                         Criterio <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li role="presentation"><a href="#" id="cNum">Número</a></li>
-                                        <li role="presentation"><a href="#" id="cTip">Tipo</a></li>
-                                        <li role="presentation"><a href="#" id="cFecha">Fecha</a></li>
+                                        <li role="presentation"><a href="#" id="cNom">Nombre</a></li>
+                                        <li role="presentation"><a href="#" id="cApe">Apellido</a></li>
+                                        <li role="presentation"><a href="#" id="cTit">Título</a></li>
+                                        <li role="presentation" class="divider"></li>
+                                        <li role="presentation"><a href="#" id="cCal">Calle</a></li>
                                     </ul>
                                 </div>
                                 <div class="form-group">
@@ -120,31 +111,84 @@
         </div>
         <!-- Fin Buscar-->
         
+        
         <div class="row">
             <div class="col-lg-2"></div>
             <div class="col-lg-8">
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Seleccion</th>
-                            <th>Número Factura</th>
-                            <th>Fecha de Creación</th>
-                            <th>Tipo</th>
+                            <th>Selección</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Titulo</th>
+                            <th>Calle</th>
+                            <th>Numero</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody id="cuerpoTablaFactura">
+                    <tbody id="cuerpoTablaProfesor">
                     </tbody>
                 </table>    
             </div>
             <div class="col-lg-2"></div>
         </div>
-           
-        <!-- modal Factura-->
-        <div class="modal fade" id="modalFactura" tabindex="-1" role="dialog" aria-labelledby="modalFactura" aria-hidden="true">
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4">
+                <div class="container-fluid"><!-- comienza paginación-->
+                    <nav>
+                        <ul class="pagination pagination-lg">
+                            <li class="disabled"><a href="#">&laquo;</a></li>
+                            <li class="active"><a href="">1</a></li>
+                            <li><a href="">2</a></li>
+                            <li><a href="">3</a></li>
+                            <li><a href="">4</a></li>
+                            <li><a href="">5</a></li>
+                            <li><a href="#">&raquo;</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-lg-4"></div>
+        </div>
+        
+        <!--OTRO PAGER
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4">
+                <div class="container-fluid">
+                    <br>
+                    <nav>
+                        <ul class="pager">
+                            <li class="previous"><a href="#">&larr; Anterior</a></li>
+                            <li class="next"><a href="#">Siguiente &rarr;</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-lg-4"></div>
+        </div><-->
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <!-- modal profesor-->
+        <div class="modal fade" id="modalProfesor" tabindex="-1" role="dialog" aria-labelledby="modalProfesor" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form id="formFactura" class="form-horizontal"
+                    <form id="formProfesor" class="form-horizontal"
                           data-bv-message="Este valor No es válido"
                           data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
                           data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
@@ -155,32 +199,56 @@
                         <div class="modal-header">
                             
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="tituloModal">Nueva Factura</h4>
+                            <h4 class="modal-title" id="tituloModal">Nuevo Profesor</h4>
                             
                         </div>
                         <div class="modal-body">
 
                             <div class="form-group">
-                                <input class="form-control" type="hidden" id="id_factura" name="id">
+                                <input class="form-control" type="hidden" id="id" name="id">
                             </div>
                             
                             <div class="form-group">
-                                <label class='col-lg-2'>Número Factura</label>
+                                <label class='col-lg-2'>Nombre</label>
                                 <div class='col-lg-10'>
-                                    <input class="form-control" type="text" id="numero_factura" name="numero"
+                                    <input class="form-control" type="text" id="nombre" name="nombre"
+                                           data-bv-notempty="true"
+                                           data-bv-notempty-message="Debes completar el Nombre">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class='col-lg-2'>Apellido</label>
+                                <div class='col-lg-10'>
+                                    <input class="form-control" type="text" id="apellido" name="apellido"
+                                           data-bv-notempty="true"
+                                           data-bv-notempty-message="Debes completar el Apellido">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class='col-lg-2'>Titulo</label>
+                                <div class='col-lg-10'>
+                                    <input class="form-control" type="text" id="titulo" name="titulo"
+                                           data-bv-notempty="true"
+                                           data-bv-notempty-message="Debes completar el Titulo">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class='col-lg-2'>Calle</label>
+                                <div class='col-lg-10'>
+                                    <input class="form-control" type="text" id="calle" name="calle"
+                                           data-bv-notempty="true"
+                                           data-bv-notempty-message="Debes completar la Calle">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class='col-lg-2'>Numero</label>
+                                <div class='col-lg-10'>
+                                    <input class="form-control" type="text" id="numero" name="numero"
                                            data-bv-notempty="true"
                                            data-bv-notempty-message="Debes completar el Numero">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class='col-lg-2'>Tipo Factura</label>
-                                <div class='col-lg-10'>
-                                    <input class="form-control" type="text" id="tipo_factura" name="tipo"
-                                           data-bv-notempty="true"
-                                           data-bv-notempty-message="Debes completar Tipo de Factura">
-                                </div>
-                            </div>
-                                                        
+                            
                             <div class="form-group">
                                 <label class='col-lg-2'></label>
                                 <div class='col-lg-10'>
@@ -190,26 +258,30 @@
                             <div class="form-group">
                                 <label class='col-lg-2'></label>
                                 <div class='col-lg-10'>
-                                    <input class="form-control" type="hidden" id="nombreFormulario" name="nombreFormulario" value="Factura">
+                                    <input class="form-control" type="hidden" id="nombreFormulario" name="nombreFormulario" value="Profesor">
                                 </div>
                             </div>
+                            
+                            
+                            
                             
                         </div>
                         <div class="modal-footer">
                             <button type="button" id="cancelar" name="cancelar" class="btn btn-default">Close</button>
                             
                             <button type="button" id="guardar" name="accion" class="btn btn-primary" value=""></button>
-                            <input type="hidden" id="nombreFormulario" value="Factura">
+                            <input type="hidden" id="nombreFormulario" value="Profesor">
                         </div>
                     </form>
                 </div>
             </div>
         </div>
         
+        
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="../js/jquery/jquery-1.11.1.min.js" type="text/javascript"></script>
         <script src="../js/bootstrap/bootstrap.min.js" type="text/javascript"></script>
         <script src="../js/bootstrap/bootstrapValidator.min.js" type="text/javascript"></script>
-        <script src="../js/funcionesFactura.js" type="text/javascript"></script>
+        <script src="../js/funcionesProfesor.js" type="text/javascript"></script>
     </body>
 </html>
