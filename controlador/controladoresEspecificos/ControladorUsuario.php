@@ -56,11 +56,8 @@ class ControladorUsuario extends ControladorGeneral {
         if($user == "" || $pass  == "") {
             echo'Todos los datos deben estar completos!';
         }else{
-<<<<<<< HEAD
+
             $parametros = array($user,  sha1($pass), "A", $fecha, $fecha, "A"); //user, pass, acceso, creac, modif
-=======
-            $parametros = array($user,  sha1($pass), "A",  date($fecha),  date($fecha), 'A'); //user, pass, acceso, creac, modif
->>>>>>> origin/master
             $resultado = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::INSERTAR_USUARIO, $parametros);
             if(!$resultado){
               echo 'Error al crear Usuario';
