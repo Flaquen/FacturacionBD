@@ -17,10 +17,12 @@ class ControladorLocalidad extends ControladorGeneral {
     }
 
     public function buscar() {
-        $buscarLocalidad = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::SELECCION_LOCALIDAD);
-
+        /*$buscarProvincia=  $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::SELECCION_UNA_PROVINCIA);
+        $arrayProvincia=$buscarProvincia->fetchAll(PDO::FETCH_ASSOC);*/
+        
+        $buscarLocalidad = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::SELECCION_LOCALIDAD/*,$arrayProvincia*/);
         $arrayLocalidad = $buscarLocalidad->fetchAll(PDO::FETCH_ASSOC);
-        echo '<select>';
+        /*echo '<select>';
         foreach ($arrayLocalidad as $clave ) {
             foreach ($clave as $valor) {
                 echo '<option>'.$valor.'</option>';
@@ -28,7 +30,8 @@ class ControladorLocalidad extends ControladorGeneral {
             
         }
         echo '</select>';
-        $buscarLocalidad=null;
+        $buscarLocalidad=null;*/
+        return $arrayLocalidad;
         
     }
 
