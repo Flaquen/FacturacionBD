@@ -12,10 +12,12 @@
  */
 interface DBSentencias {
 
-    
+    //SENTECIAS FACTURA
+    const INSERTAR_FACTURA = "INSERT INTO factura(`numero_factura`, `creacion_factura`, `tipo_factura`, `id_cliente`, `id_usuario`, `modificacion_factura`) VALUES (?, now(),?,?,?,now());";
+    const BUSCAR_FACTURAS = "SELECT numero_factura, creacion_factura, tipo_factura FROM factura WHERE estado_factura = 'A';";
+    const BUSCAR_UNA_FACTURA = "SELECT * FROM factuta WHERE id_cliente = ? AND id_usuario = ?";
+    const ELIMINAR_FACTURA = "UPDATE factura SET estado_factura = 'N' WHERE id_factura = ?;";
 
-   
-    
     //SENTENCIAS CLIENTE
     const ELIMINAR_CLIENTE = "UPDATE cliente SET estado_cliente = 'N' WHERE id_cliente = ?";
     const BUSCAR_UN_CLIENTE = "SELECT * FROM cliente WHERE estado_cliente = 'A' AND id_cliente = ?";

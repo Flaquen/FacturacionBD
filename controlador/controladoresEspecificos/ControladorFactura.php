@@ -1,6 +1,6 @@
 <?php
 require_once 'ControladorGeneral.php';
-require_once '../../modelo/Profesor.php';
+require_once '../../modelo/Factura.php';
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,31 +8,22 @@ require_once '../../modelo/Profesor.php';
  */
 
 /**
- * Description of ControladorProfesor
  *
  * @author Flaco
  */
 class ControladorFactura extends ControladorGeneral{
     public function buscar() {
-        $statement = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_PROFESORES);
+        $statement = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_FACTURAS);
 
-        $arrayPersonas = $statement->fetchAll(PDO::FETCH_ASSOC);
+        $arrayFactura = $statement->fetchAll(PDO::FETCH_ASSOC);
         
-        return $arrayPersonas;
+        return $arrayFactura;
     }
 
     public function eliminar($id) {
         try {
-            $idProfesorArray = ["id"=>$id];
-            $resultadoUltimoProfesor = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_UN_PROFESOR, $idProfesorArray);
-            $profesor = $resultadoUltimoProfesor->fetch(PDO::FETCH_ASSOC);
-            $idPro = $profesor['id'];
-            $idProArray = array("id"=>$idPro);
-            $idDomi = $profesor["FK_domicilio"];
-            $idDomiArray = array("id"=>$idDomi);
-            $resultadoBorrarPersona = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::ELIMINAR_PERSONA, $idProArray);
-            $resultadoBorrarDomicilio = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::ELIMINAR_DOMICILIO, $idDomiArray);
-            return $resultadoBorrarPersona->fetch(PDO::FETCH_ASSOC);     
+            $resultadoBorrarFactura = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::ELIMINAR_FACTURA, array($id));
+            return $resultadoBorrarFactura->fetch(PDO::FETCH_ASSOC);     
         }catch (PDOException $excepcionPDO) {
             echo "<br>Error PDO: ".$excepcionPDO->getTraceAsString().'<br>';
         }catch (Exception $excepcionGral) {
@@ -42,7 +33,7 @@ class ControladorFactura extends ControladorGeneral{
 
     public function buscarX ($datos){
         try {
-            if ($datos['criterio']=="calle") { //si busca por Calle "todas las personas que vivan en la calle san juan"
+            if ($datos['criterio']=="numero") { 
                 $resulDomi = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_PROFESOR_POR_CALLE, array($datos['valor']."%"));
                 $arrayXdomis = $resulDomi->fetchAll(PDO::FETCH_ASSOC);
                 return $arrayXdomis;
