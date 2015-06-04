@@ -4,8 +4,7 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/var/www/html/NB/FacturacionBD/vista/html/factura.html</file>
-            <file>file:/var/www/html/NB/FacturacionBD/vista/js/funcionesCliente.js</file>
-            <file>file:/var/www/html/NB/FacturacionBD/controlador/controladoresEspecificos/ControladorCliente.php</file>
+            <file>file:/var/www/html/NB/FacturacionBD/vista/js/funcionesProducto.js</file>
             <file>file:/var/www/html/NB/FacturacionBD/vista/js/funcionesFactura.js</file>
             <file>file:/var/www/html/NB/FacturacionBD/controlador/controladoresEspecificos/ControladorFactura.php</file>
             <file>file:/var/www/html/NB/FacturacionBD/controlador/persistencia/DBSentencias.php</file>

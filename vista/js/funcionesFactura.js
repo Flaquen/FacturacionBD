@@ -15,14 +15,14 @@ $(function() {
         };
         app.bindings = function() {
 
-            $("#agregar").on('click', function(event) {
-                app.borrarCampos();
-                $("#id_factura").val(0);
-                $("#tituloModal").html("Nueva Factura");
-                $("#modalFactura").modal({show: true});
-                $("#guardar").attr("value","Guardar");
-                $("#guardar").html("Guardar");
-            });
+//            $("#agregar").on('click', function(event) {
+//                app.borrarCampos();
+//                $("#id_factura").val(0);
+//                $("#tituloModal").html("Nueva Factura");
+//                $("#modalFactura").modal({show: true});
+//                $("#guardar").attr("value","Guardar");
+//                $("#guardar").html("Guardar");
+//            });
             
             $("#buscar").on('click', function(event) {
                 if ($("#txtBuscar").val()==="") {
@@ -40,6 +40,7 @@ $(function() {
                 
             });
             
+            
             $("#cNum").on('click', function (event){//si click en el elemento del combo Nombre, muestra nombre
                 $("#btnCriterio").attr("value","numero");
                 $("#btnCriterio").html("Numero <span class=\"caret\"></span>");      
@@ -55,21 +56,42 @@ $(function() {
                 $("#btnCriterio").html("Fecha <span class=\"caret\"></span>");      
 
             });
-            
-            $("#reporte").on('click', function(event) {
-                document.location.href="reporteProfesores.php";
+            $("#cCli").on('click', function (event){//si click en el elemento del combo Legajo, muestra legajo
+                $("#btnCriterio").attr("value","cliente");
+                $("#btnCriterio").html("Cliente <span class=\"caret\"></span>");      
+
             });
+            
+//            $("#reporte").on('click', function(event) {
+//                document.location.href="reporteProfesores.php";
+//            });
+//
+//            $("#cuerpoTablaFactura").on('click', '.editar', function(event) {
+//
+//                $("#id_factura").val($(this).attr("data-id_facturas"));
+//                $("#numero_factura").val($(this).parent().parent().children().first().next().html());
+//                //$("#creacion_factura").val($(this).parent().parent().children().first().next().html());
+//                //$("#tipo_factura").val($(this).parent().parent().children().first().next().next().html());
+//                if ($(this).parent().parent().children().first().next().next().html() == "A") {
+//                    $("#tipo_factura").val("A").attr("selected");
+//                }else if($(this).parent().parent().children().first().next().next().html() == "B"){
+//                    $("#tipo_factura").val("B").attr("selected");
+//                }else{
+//                    $("#tipo_factura").val("C").attr("selected");
+//                }
+//                $("#guardar").html("Modificar");
+//                $("#guardar").attr("value","Modificar");
+//                $("#tituloModal").html("Editar Factura");
+//                $("#modalFactura").modal({show: true});
+//            });
 
-            $("#cuerpoTablaFactura").on('click', '.editar', function(event) {
-
+              $("#cuerpoTablaFactura").on('click', '.ver', function(event) {
                 $("#id_factura").val($(this).attr("data-id_facturas"));
-
-                $("#numero_factura").val($(this).parent().parent().children().first().html());
-                //$("#creacion_factura").val($(this).parent().parent().children().first().next().html());
-                $("#tipo_factura").val($(this).parent().parent().children().first().next().html());
-                $("#guardar").html("Modificar");
-                $("#guardar").attr("value","Modificar");
-                $("#tituloModal").html("Editar Factura");
+                $("#numero_factura").val($(this).parent().parent().children().first().next().html());
+                $("#creacion_factura").val($(this).parent().parent().children().first().next().next().html());
+                $("#tipo_factura").val($(this).parent().parent().children().first().next().next().next().html());
+                $("#nombre_cliente").val($(this).parent().parent().children().first().next().next().next().next().html());
+                $("#tituloModal").html("Factura");
                 $("#modalFactura").modal({show: true});
             });
             
@@ -131,6 +153,7 @@ $(function() {
                 },
                 error: function(data) {
                     alert(data);
+                    console.log(data);
                 }
             });
         };
@@ -158,14 +181,15 @@ $(function() {
 
             $.each(data, function(clave, factura) {
                 html += '<tr>' +
-                        '<td><a class="center-block seleccionar" data-id_facturas="' + factura.id_factura + '"><span class="glyphicon glyphicon-eye-open"></span></a>' +
+                        '<td><a class="pull-left ver" data-id_facturas="' + factura.id_factura + '"><span class="glyphicon glyphicon-eye-open">Ver</span></a>' +
                         '<td>' + factura.numero_factura + '</td>' +
                         '<td>' + factura.creacion_factura + '</td>' +
                         '<td>' + factura.tipo_factura + '</td>' +
-                        '<td>' +
-                        '<a class="pull-left editar" data-id_facturas="' + factura.id_factura + '"><span class="glyphicon glyphicon-pencil"></span>Editar</a>' +
-                        '<a class="pull-right eliminar" data-id_facturas="' + factura.id_factura + '"><span class="glyphicon glyphicon-remove"></span>Eliminar</a>' +
-                        '</td>' +
+                        '<td>' + factura.nombre_cliente + '</td>'
+//                        '<td>' +
+//                        '<a class="pull-left editar" data-id_facturas="' + factura.id_factura + '"><span class="glyphicon glyphicon-pencil"></span>Editar</a>' +
+//                        '<a class="pull-right eliminar" data-id_facturas="' + factura.id_factura + '"><span class="glyphicon glyphicon-remove"></span>Eliminar</a>' +
+//                        '</td>' +
                         '</tr>';
             });
 
@@ -179,10 +203,10 @@ $(function() {
                         '<td>' + factura.numero_factura + '</td>' +
                         '<td>' + factura.creacion_factura + '</td>' +
                         '<td>' + factura.tipo_factura + '</td>' +
-                        '<td>' +
-                        '<a class="pull-left editar" data-id_facturas="' + factura.id_factura + '"><span class="glyphicon glyphicon-pencil"></span>Editar</a>' +
-                        '<a class="pull-right eliminar" data-id_facturas="' + factura.id_factura + '"><span class="glyphicon glyphicon-remove"></span>Eliminar</a>' +
-                        '</td>' +
+//                        '<td>' +
+//                        '<a class="pull-left editar" data-id_facturas="' + factura.id_factura + '"><span class="glyphicon glyphicon-pencil"></span>Editar</a>' +
+//                        '<a class="pull-right eliminar" data-id_facturas="' + factura.id_factura + '"><span class="glyphicon glyphicon-remove"></span>Eliminar</a>' +
+//                        '</td>' +
                         '</tr>';
                 $("#cuerpoTablaFactura").append(html);
                 
@@ -194,16 +218,16 @@ $(function() {
                         '<td>' + factura.numero_factura + '</td>' +
                         '<td>' + factura.creacion_factura + '</td>' +
                         '<td>' + factura.tipo_factura + '</td>' +
-                        '<td>' +
-                        '<a class="pull-left editar" data-id_facturas="' + factura.id_factura + '"><span class="glyphicon glyphicon-pencil"></span>Editar</a>' +
-                        '<a class="pull-right eliminar" data-id_facturas="' + factura.id_factura + '"><span class="glyphicon glyphicon-remove"></span>Eliminar</a>' +
-                        '</td>';
+//                        '<td>' +
+//                        '<a class="pull-left editar" data-id_facturas="' + factura.id_factura + '"><span class="glyphicon glyphicon-pencil"></span>Editar</a>' +
+//                        '<a class="pull-right eliminar" data-id_facturas="' + factura.id_factura + '"><span class="glyphicon glyphicon-remove"></span>Eliminar</a>' +
+//                        '</td>';
                 fila.html(html);
             }
         };
 
         app.borrarFila = function(id) {
-            var fila = $("#cuerpoTablaFactura").find("a[data-id_facturas='" + id_factura + "']").parent().parent().remove();
+            var fila = $("#cuerpoTablaFactura").find("a[data-id_facturas='" + id + "']").parent().parent().remove();
 
         };
         
@@ -224,27 +248,6 @@ $(function() {
 
             });
         };
-
-//        app.rellenarTabla = function(data) {
-//
-//            var html = "";
-//
-//            $.each(data, function(clave, persona) {
-//                html += '<tr>' +
-//                        '<td><a class="center-block seleccionar" data-id_factura="' + persona.id + '"><span class="glyphicon glyphicon-eye-open"></span></a></td>' +
-//                        '<td>' + persona.nombre + '</td>' +
-//                        '<td>' + persona.apellido + '</td>' +
-//                        '<td>' + persona.titulo + '</td>' +
-//                        '<td>' + persona.calle + '</td>' +
-//                        '<td>' + persona.numero + '</td>' +
-//                        '<td>' +
-//                        '<a class="pull-left editar" data-id_factura="' + persona.id + '"><span class="glyphicon glyphicon-pencil"></span>Editar</a>' +
-//                        '<a class="pull-right eliminar" data-id_factura="' + persona.id + '"><span class="glyphicon glyphicon-remove"></span>Eliminar</a>' +
-//                        '</td>' +
-//                        '</tr>';
-//            });
-//            $("#cuerpoTablaFactura").html(html);
-//        };
 
         app.init();
 

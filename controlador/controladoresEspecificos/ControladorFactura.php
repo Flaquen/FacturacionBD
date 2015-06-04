@@ -51,59 +51,35 @@ class ControladorFactura extends ControladorGeneral{
     }
     
     public function guardar($datosCampos) {
+        $hoy = getdate(); 
+        $fecha = $hoy['year'].'-'.$hoy['mon'].'-'.$hoy['mday'].' '.$hoy['hours'].':'.$hoy['minutes'].':'.$hoy['seconds']; 
         
-
-//        if($nombre == "" || $apellido  == "" || $legajo == "" || $calle == "" || $numero == "") {
-//            return new ApiError("Todos los datos deben estar completos!");
-//        }
-        //$parametros = array($nombre,$apellido, "-----",$legajo, "A",$calle, $numero);
-
-        $resultado = null;
-        if($datosCampos['id'] == 0) { // si id=0 entonces es agregar
-//            $this->refControladorPersistencia->get_conexion->beginTransaction();
-            $paramDomi = ["calle"=>$datosCampos['calle'], "numero"=>$datosCampos['numero']];
-            $res = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::INSERTAR_DOMICLIO, $paramDomi);
-            $ultDomi = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::ULTIMO_DOMICILIO);
-            $idDom = $ultDomi->fetchColumn();
-            $paramProf = ["nombre"=>$datosCampos['nombre'], "apellido"=>$datosCampos['apellido'], "titulo"=>$datosCampos['titulo'], "legajo"=>0, "tipo"=>"P", "FK_domicilio"=>$idDom];
-
-            $resul = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::INSERTAR_PERSONA, $paramProf);
-            if (!$resul) {
-                echo 'no hizo el insert de profesor';
-            }
-            $idStat = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::ULTIMO_PROFESOR);
-            $id = $idStat->fetchColumn();
-            //echo $id."---------------------------------------<br>";
-            
-//            if ($ultDomi == false || $res == false || $resul == false) {
-//                $this->refControladorPersistencia->get_conexion->rollBack();
-//            }else{
-//                $this->refControladorPersistencia->get_conexion->commit();
-//            }
-            
-        } else { //si entra acá es para modificar
-            $resProfesor = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_UN_PROFESOR,array($datosCampos['id']));
-            $fkDomi = $resProfesor->fetchColumn(6);
-            $paramPro = ["nombre"=>$datosCampos['nombre'], "apellido"=>$datosCampos['apellido'],"titulo"=>$datosCampos['titulo'],"calle"=>$datosCampos['calle'], "numero"=>$datosCampos['numero'], "id"=>$datosCampos['id']];
-            $resUpdate = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::ACTUALIZAR_PROFESOR_CON_DOMICILIO, $paramPro);
-            $id = $datosCampos['id'];
+        if($datosCampos['id'] == 0) { // si id=0 agregar
+            $param = ["numero_factura"=>$datosCampos['numero'], "creacion_factura"=>$fecha, 
+                "tipo_factura"=>$datosCampos['tipo'], "id_cliente"=>2,
+                "id_usuario"=>2,"modificacion_factura"=>$fecha,"estado_factura"=>"A"];
+            $resul = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::INSERTAR_FACTURA, $param);
+            $ultimaFactura = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::ULTIMA_FACTURA);
+            $ultimoId = $ultimaFactura->fetchColumn();
+            $respuesta = $this->getFactura($ultimoId);
+        }else { //si entra acá es para modificar
+             $param = ["numero_factura"=>$datosCampos['numero'], "creacion_factura"=>$fecha, 
+                "tipo_factura"=>$datosCampos['tipo'], "id_cliente"=>$datosCampos['id'],
+                "id_usuario"=>2,"modificacion_factura"=>$fecha,"estado_factura"=>"A"];
+            $resUpdate = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::ACTUALIZAR_FACTURA, $param);
+            $respuesta = $this->getFactura($datosCampos['id']);
         }
-        $respuesta = $this->getPersona($id);
-        $domici = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_UN_DOMICILIO, array($respuesta['FK_domicilio']));
-        $domArr = $domici->fetch(PDO::FETCH_ASSOC);
-        $respuesta['calle']=$domArr['calle'];
-        $respuesta['numero']=$domArr['numero'];
         return $respuesta;
     }
     
-    public function getPersona($id) {
-      $statement = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_UN_PROFESOR,array($id));
-      $profesor = $statement->fetch();
+    public function getFactura($id) {
+      $statement = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_UNA_FACTURA,array($id));
+      $factura = $statement->fetch();
       
-      if (!$profesor) {
-        echo 'ERROR AL BUSCAR EL PROFESOR';
+      if (!$factura) {
+        echo 'ERROR AL BUSCAR EL Factura';
       }
-      return $profesor;
+      return $factura;
     }
 
     public function agregar($datosCampos) {

@@ -13,10 +13,16 @@
 interface DBSentencias {
 
     //SENTECIAS FACTURA
-    const INSERTAR_FACTURA = "INSERT INTO factura(`numero_factura`, `creacion_factura`, `tipo_factura`, `id_cliente`, `id_usuario`, `modificacion_factura`) VALUES (?, now(),?,?,?,now());";
-    const BUSCAR_FACTURAS = "SELECT numero_factura, creacion_factura, tipo_factura FROM factura WHERE estado_factura = 'A';";
-    const BUSCAR_UNA_FACTURA = "SELECT * FROM factuta WHERE id_cliente = ? AND id_usuario = ?";
+    const INSERTAR_FACTURA = "INSERT INTO factura(`numero_factura`, `creacion_factura`, `tipo_factura`, `id_cliente`, `id_usuario`, `modificacion_factura`) VALUES (?,?,?,?,?,?);";
+    const BUSCAR_FACTURAS = "SELECT id_factura, numero_factura, creacion_factura, tipo_factura, nombre_cliente
+            FROM factura INNER JOIN cliente ON factura.id_factura = cliente.id_cliente 
+            WHERE factura.estado_factura = 'A';";
+    
+    const BUSCAR_UNA_FACTURA = "SELECT * FROM factura WHERE estado_factura = 'A' AND id_factura = ?";
     const ELIMINAR_FACTURA = "UPDATE factura SET estado_factura = 'N' WHERE id_factura = ?;";
+    const ULTIMA_FACTURA = "SELECT MAX(id_factura) FROM factura;";
+    const ACTUALIZAR_FACTURA = "UPDATE factura SET numero_factura = ?, creacion_factura = ?, tipo_factura = ?, id_usuario = ?, modificacion_factura = ? WHERE id_cliente = ?;";
+    
 
     //SENTENCIAS CLIENTE
     const ELIMINAR_CLIENTE = "UPDATE cliente SET estado_cliente = 'N' WHERE id_cliente = ?";

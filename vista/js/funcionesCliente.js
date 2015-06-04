@@ -16,8 +16,9 @@ $(function() {
 
         };
         app.bindings = function() {
-
+            console.log("Estoy aca");
             $("#agregar").on('click', function(event) {
+                console.log("paso click");
                 event.preventDefault();
                 app.borrarCampos();
                 $("#id_cliente").val(0);
